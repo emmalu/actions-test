@@ -44,6 +44,8 @@ jobs:
         - my_docker_volume:/volume_mount
     
     steps:
+      - name: Print current directory
+        run: pwd
       - name: Check directories for data
         run: (ls /data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
       # - name: Publish Data in Docker container
