@@ -7,8 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -47,9 +47,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: .
+          lfs: "true"
+          submodules: "recursive"
       - name: Print current directory
         run: pwd
+      - name: Print all files in current directory
+        run: ls -la
       - name: Check directories for data
         run: (ls /data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
       # - name: Publish Data in Docker container
