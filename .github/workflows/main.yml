@@ -33,6 +33,10 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: Check directories for data
+        run: |
+          ls /data/in/ -la
+          ls /data/out/ -la
 
   publish-data:
     needs: build
@@ -45,10 +49,8 @@ jobs:
         - my_docker_volume:/volume_mount
     
     steps:
-      - uses: actions/checkout@v4
-        with:
-          lfs: "true"
-          submodules: "recursive"
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - name: Print current directory
         run: pwd
       - name: Print all files in current directory
