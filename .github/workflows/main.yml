@@ -58,4 +58,12 @@ jobs:
         run: (ls data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
       - name: Publish Data in Docker container
         run: |
-          ogr2ogr data/out/test.geoparquet data/in/tecnico_buildings_4326.geojson
+          ogr2ogr \
+          data/out/test.parquet \
+          data/in/tecnico_buildings_4326.geojson \
+          -dialect SQLite \
+          -sql "SELECT geometry FROM 'tecnico_buildings_4326'" \
+          -lco COMPRESSION=BROTLI \
+          -lco GEOMETRY_ENCODING=GEOARROW \
+          -lco POLYGON_ORIENTATION=COUNTERCLOCKWISE \
+          -lco ROW_GROUP_SIZE=500000
