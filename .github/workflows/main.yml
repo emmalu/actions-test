@@ -54,12 +54,10 @@ jobs:
         run: pwd
       - name: Print all files in current directory
         run: ls -la
-      - name: Check data directory for data
-        run: (ls data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
       - name: Publish Data in Docker container
         run: |
           ogr2ogr \
-          data/in/test.parquet \
+          data/out/test.parquet \
           data/in/tecnico_buildings_4326.geojson \
           -dialect SQLite \
           -sql "SELECT geometry FROM 'tecnico_buildings_4326'" \
@@ -67,3 +65,5 @@ jobs:
           -lco GEOMETRY_ENCODING=GEOARROW \
           -lco POLYGON_ORIENTATION=COUNTERCLOCKWISE \
           -lco ROW_GROUP_SIZE=500000
+      - name: Check if data was created 
+        run: ls -la
