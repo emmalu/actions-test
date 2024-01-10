@@ -58,4 +58,4 @@ jobs:
         run: (ls data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
       - name: Publish Data in Docker container
         run: |
-          ogr2ogr -f "GPKG" data/out/test.gpkg data/in/tecnico_buildings_4326.geojson
+          ogr2ogr data/out/test.geoparquet data/in/tecnico_buildings_4326.geojson
