@@ -53,7 +53,7 @@ jobs:
       - name: Print current directory
         run: pwd
       - name: Print all files in current directory
-        run: ls -la
+        run: ls data/ -la
       - name: Publish Data in Docker container
         run: |
           ogr2ogr \
@@ -66,4 +66,4 @@ jobs:
           -lco POLYGON_ORIENTATION=COUNTERCLOCKWISE \
           -lco ROW_GROUP_SIZE=500000
       - name: Check if data was created 
-        run: ls -la
+        run: ls data/ -la
