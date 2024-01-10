@@ -24,8 +24,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: .
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
@@ -35,12 +33,11 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
   publish-data:
     needs: build
     runs-on: ubuntu-latest
-    - uses: actions/checkout@v4
-        with:
-          sparse-checkout: .
+    
     container:
       image: osgeo/gdal
       volumes:
@@ -48,6 +45,9 @@ jobs:
         - my_docker_volume:/volume_mount
     
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
       - name: Print current directory
         run: pwd
       - name: Check directories for data
