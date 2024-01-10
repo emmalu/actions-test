@@ -41,12 +41,11 @@ jobs:
       image: osgeo/gdal
       volumes:
         - ${{ github.workspace }}:/data
+        - my_docker_volume:/volume_mount
     steps:
-      - name: Check directories for volumes
-        run: |
-          ls -la /data
-          ls /data -la 
-      - name: Publish Data in Docker container
-      # uses this docker image: docker pull osgeo/gdal
-        run: |
-          ogr2ogr -f "GPKG" /data/out/test.gpkg /data/in/tecnico_buildings_4326.geojson
+      - name: Check directories for data
+        run: (ls /data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
+      # - name: Publish Data in Docker container
+      # # uses this docker image: docker pull osgeo/gdal
+      #   run: |
+      #     ogr2ogr -f "GPKG" /data/out/test.gpkg /data/in/tecnico_buildings_4326.geojson
