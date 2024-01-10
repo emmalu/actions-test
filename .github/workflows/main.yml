@@ -35,9 +35,9 @@ jobs:
           echo test, and deploy your project.
       - name: Check directories for data
         run: |
-          ls /data/in/ -la
-          ls /data/out/ -la
-
+          ls -la
+          ls data -la
+          
   publish-data:
     needs: build
     runs-on: ubuntu-latest
