@@ -41,13 +41,11 @@ jobs:
       image: osgeo/gdal
       volumes:
         - ${{ github.workspace }}:/data
-        - my_docker_volume:/volume_mount
-        - /data
     steps:
-      - name: check directories for volumes
+      - name: Check directories for volumes
         run: |
           ls -la /data
-          ls -la /volume_mount
+          ls /data -la 
       - name: Publish Data in Docker container
       # uses this docker image: docker pull osgeo/gdal
         run: |
