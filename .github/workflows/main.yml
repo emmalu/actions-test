@@ -54,9 +54,8 @@ jobs:
         run: pwd
       - name: Print all files in current directory
         run: ls -la
-      - name: Check directories for data
-        run: (ls /data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
-      # - name: Publish Data in Docker container
-      # # uses this docker image: docker pull osgeo/gdal
-      #   run: |
-      #     ogr2ogr -f "GPKG" /data/out/test.gpkg /data/in/tecnico_buildings_4326.geojson
+      - name: Check data directory for data
+        run: (ls data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
+      - name: Publish Data in Docker container
+        run: |
+          ogr2ogr -f "GPKG" data/out/test.gpkg data/in/tecnico_buildings_4326.geojson
