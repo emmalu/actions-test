@@ -34,3 +34,17 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+  publish-data:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: osgeo/gdal
+      volumes:
+        - ${{ github.workspace }}:/data
+        - my_docker_volume:/volume_mount
+        - /data
+    steps:
+      - name: Publish Data in Docker container
+      # uses this docker image: docker pull osgeo/gdal
+        run: |
+          ogr2ogr -f "GPKG" /data/out/test.gpkg /data/in/tecnico_buildings_4326.geojson
