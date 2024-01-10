@@ -40,8 +40,9 @@ jobs:
     container:
       image: osgeo/gdal
       volumes:
-        - ${{ github.workspace }}:/data
+        - ${{ github.workspace }}/data:/data
         - my_docker_volume:/volume_mount
+    
     steps:
       - name: Check directories for data
         run: (ls /data/in/tecnico_buildings_4326.geojson && echo Found DATA) || (echo No DATA)
