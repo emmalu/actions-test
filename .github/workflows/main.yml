@@ -76,4 +76,4 @@ jobs:
 
       - name: Copy data back to repo
         run: |
-          cp data/out/test.parquet data/
+          cp data/out/test.parquet .
