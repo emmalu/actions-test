@@ -50,10 +50,13 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Print current directory
-        run: pwd
-      - name: Print all files in current directory
-        run: ls data/ -la
+        
+      - name: Count files in current directory
+      # count items in directory and store them in a variable
+        run: |
+          echo "##[set-output name=in_files;]$(ls data/in -l | wc -l)"
+          echo "##[set-output name=out_files;]$(ls data/out -l | wc -l)"
+       
       - name: Publish Data in Docker container
         run: |
           ogr2ogr \
@@ -65,5 +68,12 @@ jobs:
           -lco GEOMETRY_ENCODING=GEOARROW \
           -lco POLYGON_ORIENTATION=COUNTERCLOCKWISE \
           -lco ROW_GROUP_SIZE=500000
-      - name: Check if data was created 
-        run: ls data/ -la
+        
+      - name: Count files in out directory
+      # count items in directory and store them in a variable
+        run: |
+          echo "##[set-output name=out_files;]$(ls data/out -l | wc -l)"
+
+      - name: Copy data back to repo
+        run: |
+          cp data/out/test.parquet data/
