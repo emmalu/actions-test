@@ -54,8 +54,8 @@ jobs:
       - name: Count files in current directory
       # count items in directory and store them in a variable
         run: |
-          echo "##[set-output name=in_files;]$(ls data/in -l | wc -l)"
-          echo "##[set-output name=out_files;]$(ls data/out -l | wc -l)"
+          ls data/in -l | wc -l
+          ls data/out -l | wc -l
        
       - name: Publish Data in Docker container
         run: |
@@ -72,7 +72,7 @@ jobs:
       - name: Count files in out directory
       # count items in directory and store them in a variable
         run: |
-          echo "##[set-output name=out_files;]$(ls data/out -l | wc -l)"
+          echo ls data/out -l | wc -l
 
       - name: Copy data back to repo
         run: |
