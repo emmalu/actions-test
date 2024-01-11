@@ -74,6 +74,8 @@ jobs:
         run: |
           echo ls data/out -l | wc -l
 
-      - name: Copy data back to repo
-        run: |
-          cp data/out/test.parquet .
+      - name: Upload geoparquet file
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-data
+          path: data/out/test.parquet
